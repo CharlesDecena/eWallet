@@ -9,12 +9,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "express-session-json": "0.0.8",
+    "express-validator": "^5.3.0",
     "morgan": "^1.9.1",
+    "mysql": "^2.16.0",
     "pug": "^2.0.3",
     "simple-json-store": "0.0.1"
   },
   "devDependencies": {
-    "eslint": "^5.7.0"
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1"
   }
 }

@@ -1,0 +1,33 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    title= title
+    link(rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous")
+
+  style
+      include index.css
+
+  body
+    .header()
+      a.logo(href='/') E-Wallet
+      .header-right
+        a() Welcome User
+    main#cardoVue(role="main" class="container")
+      h1#pageTitle Check Balance
+      form#transferFundsForm(action="/" method="POST")
+        .form-Transfer()
+          label Your Account Number:
+           input.form-control#myaccountno(type="text" name="myaccountno" style = "width: 250px;")
+        .form-Transfer()
+          label PIN
+           input.form-control#myaccountno(type="text" name="pin" style = "width: 250px;")
+        .form-Transfer()
+          label Amount Balance:
+          input.form-control#amount(type="text" name="amount"  style = "width: 250px;" readonly)    
+        .form-Transfer()
+          a.eventButton(style="margin-top: 10px; margin-left:10px;" href="#") Check
+          a.cancel(type="button" style="margin-top: 10px; margin-left:10px;" href="/") Return
+

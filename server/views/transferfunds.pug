@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    title= title
+    link(rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous")
+
+  style
+      include index.css
+
+  body
+    .header()
+      a.logo(href='/') E-Wallet
+      .header-right
+        a() Welcome User
+    main#transferFundsVue(role="main" class="container")
+      h1#pageTitle Transfer Funds
+      form#transferFundsForm(action="/transferfunds" method="POST")
+        .form-Transfer()
+          label Your Account Number:
+          input.form-control#myaccountno(type="number" name="myaccountno" style = "width: 250px;" v-model="fromAccountNo")
+        .form-Transfer()
+          label Amount:
+          input.form-control#amount(type="number" name="amount" style = "width: 250px;" v-model="amount")
+        .form-Transfer()
+          label To Account Number:
+          input.form-control#toaccountno(type="number" name="toaccountno" style = "width: 250px;" v-model="toAccountNo")
+        .form-Transfer()
+          label PIN Code:
+          input.form-control#pincode(type="password" name="pincode" style = "width: 250px;" v-model = "pinCode")    
+        .form-Transfer()
+          button.eventButton#TransferFunds(type="button" style="margin-top: 10px;" v-on:click="update") Transfer
+          a.cancel(type="button" style="margin-top: 10px; margin-left: 10px;" href="/") Cancel
+
+script(src="/axios.min.js")
+script(src="/vue.js")
+script(src="/transferfunds-vue.js")
+

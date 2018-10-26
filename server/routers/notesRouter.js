@@ -1,63 +1,45 @@
-/**
- * notesRouter.js
- */
 const express = require('express');
-const router = express.Router(); //eslint-disable-line
-const SimpleJsonStore = require('simple-json-store');
+const router = express.Router();
 
-const store = new SimpleJsonStore('./data.json', { notes: [] });
-
-router.get('/', (req, res, next) => {
-  console.log('Index page only');
-  next();
-}, (req, res) => {
-  res.json(store.get('notes'));
+const simpleJsonStore = require('simple-json-store');
+const store = new simpleJsonStore('./data.json',{
+    notes:[]
 });
 
-router.get('/:id', (req, res) => {
-  let note = {};
-  const notes = store.get('notes');
-  note = notes.find(notes => notes.id === req.params.id);
-  res.json(note);
-});
+  router.get('/',(req,res) => {
+    res.json(store.get('notes'));
+  });
+  
+  router.post('/', (req,res) => {
+    const notes =store.get('notes');
+    let newNote = {
+        id:notes.length > 0 ? (notes[notes.length-1].id + 1) : 1,
+        title: req.body.title,
+        description: req.body.description
+    };
 
-router.post('/', (req, res) => {
-  const notes = store.get('notes');
-  const newNote = {
-    id: notes.length > 0 ? notes[notes.length - 1].id + 1 : 1,
-    title: req.body.title,
-    description: req.body.description
-  };
+    notes.push(newNote);
+    store.set('notes',notes);
 
-  notes.push(newNote);
-  store.set('notes', notes);
+    res.json(notes);
+  });
 
-  res.json(store.get('notes'));
-});
+  router.get('/:id',(req,res) => {
+    const id = req.params.id;
+    const notes = store.get('notes');
+    const note = notes.find(note =>  note.id == id);
 
-router.put('/:id', (req, res) => {
-  const id = req.params.id;
-  const notes = store.get('notes');
+    res.json(note);
+  });
 
-  for(let i = 0; i < notes.length; i++) {
-    if(notes[i].id === id) {
-      notes[i].title = req.body.title;
-      notes[i].description = req.body.description;
-      break;
-    }
-  }
 
-  store.set('notes', notes);
-  res.json(store.get('notes'));
-});
+  router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    const notes = store.get('notes');
+    const newNotes = notes.filter(note => Number(note.id) !== Number(id));
+  
+    store.set('notes', newNotes);
+    res.json(newNotes);
+  });
 
-router.delete('/:id', (req, res) => {
-  const id = req.params.id;
-  const notes = store.get('notes');
-  const newNote = notes.filter(note => note.id !== id);
-
-  store.set('notes', newNote);
-  res.json(store.get('notes'));
-});
-
-module.exports = router;
+  module.exports = router;
